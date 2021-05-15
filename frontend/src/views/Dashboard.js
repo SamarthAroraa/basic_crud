@@ -117,7 +117,7 @@ const Dashboard = (props) => {
         method: 'post',
         url: process.env.REACT_APP_API_URI+'entries',
         headers: {
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWYyZDk5NmQ2ZTkzZTAyZmY5YTFlYyIsImlhdCI6MTYyMTA0NDY0NiwiZXhwIjoxNjIzNjM2NjQ2fQ.dsN9bBuFrhH3G4-nWQZBKtD20lm1feYmy-2a8dC7248',
+          'Authorization': `Bearer ${auth.getToken()}`,
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         data: data
@@ -149,9 +149,9 @@ const Dashboard = (props) => {
     });
     var config = {
       method: 'put',
-      url: process.env.REACT_APP_API_URI+`${idList[idx]}`,
+      url: process.env.REACT_APP_API_URI+`entries/${idList[idx]}`,
       headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWYyZDk5NmQ2ZTkzZTAyZmY5YTFlYyIsImlhdCI6MTYyMTA0NDY0NiwiZXhwIjoxNjIzNjM2NjQ2fQ.dsN9bBuFrhH3G4-nWQZBKtD20lm1feYmy-2a8dC7248',
+        'Authorization':  `Bearer ${auth.getToken()}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: data
@@ -176,7 +176,7 @@ const Dashboard = (props) => {
       method: 'delete',
       url: process.env.REACT_APP_API_URI+`${idList[idx]}`,
       headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWYyZDk5NmQ2ZTkzZTAyZmY5YTFlYyIsImlhdCI6MTYyMTA0NDY0NiwiZXhwIjoxNjIzNjM2NjQ2fQ.dsN9bBuFrhH3G4-nWQZBKtD20lm1feYmy-2a8dC7248',
+        'Authorization':  `Bearer ${auth.getToken()}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
 
@@ -206,7 +206,7 @@ const Dashboard = (props) => {
       method: 'get',
       url: process.env.REACT_APP_API_URI+'entries',
       headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWYyZDk5NmQ2ZTkzZTAyZmY5YTFlYyIsImlhdCI6MTYyMTA0NDY0NiwiZXhwIjoxNjIzNjM2NjQ2fQ.dsN9bBuFrhH3G4-nWQZBKtD20lm1feYmy-2a8dC7248',
+        'Authorization':  `Bearer ${auth.getToken()}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: data

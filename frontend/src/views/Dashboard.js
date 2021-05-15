@@ -174,7 +174,7 @@ const Dashboard = (props) => {
 
     var config = {
       method: 'delete',
-      url: process.env.REACT_APP_API_URI+`${idList[idx]}`,
+      url: process.env.REACT_APP_API_URI+`entries/${idList[idx]}`,
       headers: {
         'Authorization':  `Bearer ${auth.getToken()}`,
         'Content-Type': 'application/x-www-form-urlencoded'

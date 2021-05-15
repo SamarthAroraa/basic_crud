@@ -88,6 +88,7 @@ public/uploads/*
 ############################
 
 lib-cov
+package-lock.json
 lcov.info
 pids
 logs

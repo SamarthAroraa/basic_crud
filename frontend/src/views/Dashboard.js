@@ -117,7 +117,6 @@ const Dashboard = (props) => {
         method: 'post',
         url: process.env.REACT_APP_API_URI + 'entries',
         headers: {
-          'Authorization': `Bearer ${auth.getToken()}`,
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         data: data
@@ -151,7 +150,6 @@ const Dashboard = (props) => {
       method: 'put',
       url: process.env.REACT_APP_API_URI + `entries/${idList[idx]}`,
       headers: {
-        'Authorization': `Bearer ${auth.getToken()}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: data
@@ -175,10 +173,7 @@ const Dashboard = (props) => {
     var config = {
       method: 'delete',
       url: process.env.REACT_APP_API_URI + `entries/${idList[idx]}`,
-      headers: {
-        'Authorization': `Bearer ${auth.getToken()}`,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
+      headers: {},
 
     };
 
@@ -199,13 +194,13 @@ const Dashboard = (props) => {
       history.push("/auth/login");
     }
     var data = qs.stringify({
-  
+
     });
     var config = {
       method: 'get',
       url: 'https://immense-stream-12689.herokuapp.com/entries',
-      headers: { },
-      data : data
+      headers: {},
+      data: data
     };
 
     axios(config)

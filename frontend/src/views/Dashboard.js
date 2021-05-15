@@ -115,7 +115,7 @@ const Dashboard = (props) => {
       });
       var config = {
         method: 'post',
-        url: 'http://localhost:1337/entries',
+        url: process.env.REACT_APP_API_URI+'entries',
         headers: {
           'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWYyZDk5NmQ2ZTkzZTAyZmY5YTFlYyIsImlhdCI6MTYyMTA0NDY0NiwiZXhwIjoxNjIzNjM2NjQ2fQ.dsN9bBuFrhH3G4-nWQZBKtD20lm1feYmy-2a8dC7248',
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -149,7 +149,7 @@ const Dashboard = (props) => {
     });
     var config = {
       method: 'put',
-      url: `http://localhost:1337/entries/${idList[idx]}`,
+      url: process.env.REACT_APP_API_URI+`${idList[idx]}`,
       headers: {
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWYyZDk5NmQ2ZTkzZTAyZmY5YTFlYyIsImlhdCI6MTYyMTA0NDY0NiwiZXhwIjoxNjIzNjM2NjQ2fQ.dsN9bBuFrhH3G4-nWQZBKtD20lm1feYmy-2a8dC7248',
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -174,7 +174,7 @@ const Dashboard = (props) => {
 
     var config = {
       method: 'delete',
-      url: `http://localhost:1337/entries/${idList[idx]}`,
+      url: process.env.REACT_APP_API_URI+`${idList[idx]}`,
       headers: {
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWYyZDk5NmQ2ZTkzZTAyZmY5YTFlYyIsImlhdCI6MTYyMTA0NDY0NiwiZXhwIjoxNjIzNjM2NjQ2fQ.dsN9bBuFrhH3G4-nWQZBKtD20lm1feYmy-2a8dC7248',
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -204,7 +204,7 @@ const Dashboard = (props) => {
     });
     var config = {
       method: 'get',
-      url: 'http://localhost:1337/entries',
+      url: process.env.REACT_APP_API_URI+'entries',
       headers: {
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWYyZDk5NmQ2ZTkzZTAyZmY5YTFlYyIsImlhdCI6MTYyMTA0NDY0NiwiZXhwIjoxNjIzNjM2NjQ2fQ.dsN9bBuFrhH3G4-nWQZBKtD20lm1feYmy-2a8dC7248',
         'Content-Type': 'application/x-www-form-urlencoded'

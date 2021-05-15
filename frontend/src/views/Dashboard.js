@@ -199,13 +199,13 @@ const Dashboard = (props) => {
       history.push("/auth/login");
     }
     var data = qs.stringify({
-
+  
     });
     var config = {
       method: 'get',
-      url: process.env.REACT_APP_API_URI + 'entries',
-      headers: {},
-      data: data
+      url: 'https://immense-stream-12689.herokuapp.com/entries',
+      headers: { },
+      data : data
     };
 
     axios(config)

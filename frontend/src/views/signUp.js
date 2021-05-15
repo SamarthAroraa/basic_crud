@@ -114,13 +114,12 @@ const SignUp = (props) => {
         var data = qs.stringify(newUser);
         var config = {
             method: 'post',
-            url: process.env.REACT_APP_API_URI + 'users',
-            headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWYyZDk5NmQ2ZTkzZTAyZmY5YTFlYyIsImlhdCI6MTYyMTA0NDY0NiwiZXhwIjoxNjIzNjM2NjQ2fQ.dsN9bBuFrhH3G4-nWQZBKtD20lm1feYmy-2a8dC7248',
-                'Content-Type': 'application/x-www-form-urlencoded'
+            url: process.env.REACT_APP_API_URI+'users',
+            headers: { 
+              'Content-Type': 'application/x-www-form-urlencoded'
             },
-            data: data
-        };
+            data : data
+          };
 
         axios(config)
             .then(function (response) {

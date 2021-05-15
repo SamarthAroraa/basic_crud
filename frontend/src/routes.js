@@ -23,6 +23,8 @@ import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
+import SignUp from 'views/signUp'
+import Login from 'views/Login'
 
 var routes = [
   {
@@ -32,6 +34,22 @@ var routes = [
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,
     layout: "/admin",
+  },
+  {
+    path: "/sign-up",
+    name: "",
+    rtlName: "طباعة",
+    icon: "",
+    component: SignUp,
+    layout: "/auth",
+  },
+  {
+    path: "/login",
+    name: "",
+    rtlName: "طباعة",
+    icon: "",
+    component: Login,
+    layout: "/auth",
   },
 
 ];

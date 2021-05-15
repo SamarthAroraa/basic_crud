@@ -16,10 +16,15 @@
 
 */
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
+import axios from 'axios';
+import qs from 'qs';
+
 
 // reactstrap components
 import {
@@ -43,6 +48,7 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 import swal from 'sweetalert';
+import auth from 'utils/auth'
 
 
 // core components
@@ -59,10 +65,12 @@ const Dashboard = (props) => {
   //   setbigChartData(name);
   // };
   const [modal, setModal] = useState(false);
+  const history = useHistory();
   const toggle = () => setModal(!modal);
   const [alert, setAlert] = useState(null);
-  const [taskList, setTaskList] = useState(['Wash Dishes']);
-  const [timeList, setTimeList] = useState(['Tuesday 3pm']);
+  const [taskList, setTaskList] = useState([]);
+  const [timeList, setTimeList] = useState([]);
+  const [idList, setIdList] = useState([]);
   const [currentTask, setCurrentTask] = useState('');
   const hideAlert = () => {
     setAlert(null)
@@ -72,7 +80,7 @@ const Dashboard = (props) => {
     let value = await swal({
       content: "input",
     })
-    console.log(value)
+    // console.log(value)
 
     let newTaskList = taskList;
     let newTimeList = timeList;
@@ -96,25 +104,135 @@ const Dashboard = (props) => {
     var month = months[d.getMonth()];
     var year = d.getFullYear();
 
-    var dateTime =  day + " " + hr + ":" + min + ampm + " " + date + " " + month + " " + year;
+    var dateTime = day + " " + hr + ":" + min + ampm + " " + date + " " + month + " " + year;
+    //create item
     if (value != '') {
       newTaskList.push(value);
       newTimeList.push(dateTime);
+      var data = qs.stringify({
+        'title': `${value}`,
+        'timeAdded': `${dateTime}`
+      });
+      var config = {
+        method: 'post',
+        url: 'http://localhost:1337/entries',
+        headers: {
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWYyZDk5NmQ2ZTkzZTAyZmY5YTFlYyIsImlhdCI6MTYyMTA0NDY0NiwiZXhwIjoxNjIzNjM2NjQ2fQ.dsN9bBuFrhH3G4-nWQZBKtD20lm1feYmy-2a8dC7248',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: data
+      };
+
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
-
-
-
-
     await setTaskList([...newTaskList]);
     await setTimeList([...newTimeList]);
-    console.log(taskList);
+    // console.log(taskList);
+  }
 
+  const editItem = async (idx) => {
+    let value = await swal({
+      content: "input",
+    })
+    let old = taskList;
+    old[idx] = value;
+    setTaskList([...old]);
+    var data = qs.stringify({
+      'title': `${value}`,
+      'timeAdded': 'Saturday 7:32am 15 May 2021'
+    });
+    var config = {
+      method: 'put',
+      url: `http://localhost:1337/entries/${idList[idx]}`,
+      headers: {
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWYyZDk5NmQ2ZTkzZTAyZmY5YTFlYyIsImlhdCI6MTYyMTA0NDY0NiwiZXhwIjoxNjIzNjM2NjQ2fQ.dsN9bBuFrhH3G4-nWQZBKtD20lm1feYmy-2a8dC7248',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  const deleteItem = (idx) => {
+    let newTasks = taskList.filter((item) => item != taskList[idx]);
+    setTaskList([...newTasks]);
+    let newTimes = timeList.filter((time, index) => (index !== idx))
+    setTimeList([...newTimes])
+
+    var config = {
+      method: 'delete',
+      url: `http://localhost:1337/entries/${idList[idx]}`,
+      headers: {
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWYyZDk5NmQ2ZTkzZTAyZmY5YTFlYyIsImlhdCI6MTYyMTA0NDY0NiwiZXhwIjoxNjIzNjM2NjQ2fQ.dsN9bBuFrhH3G4-nWQZBKtD20lm1feYmy-2a8dC7248',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
   }
+
+
+
   useEffect(() => {
-    setTaskList([]);
-    setTimeList([])
+    if (!auth.getToken()) {
+      history.push("/auth/login");
+    }
+    var data = qs.stringify({
+      'title': 'test',
+      'timeAdded': 'Saturday 7:32am 15 May 2021'
+    });
+    var config = {
+      method: 'get',
+      url: 'http://localhost:1337/entries',
+      headers: {
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWYyZDk5NmQ2ZTkzZTAyZmY5YTFlYyIsImlhdCI6MTYyMTA0NDY0NiwiZXhwIjoxNjIzNjM2NjQ2fQ.dsN9bBuFrhH3G4-nWQZBKtD20lm1feYmy-2a8dC7248',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function (response) {
+        let storedTaskList = []
+        let storedTimeList = []
+        let storedIdList = []
+        let size = response.data.length;
+        for (let i = 0; i < size; i++) {
+          storedTaskList.push(response.data[i].title)
+          storedTimeList.push(response.data[i].timeAdded)
+          storedIdList.push(response.data[i]._id)
+        }
+        setTaskList([...storedTaskList])
+        setTimeList([...storedTimeList])
+        setIdList([...storedIdList])
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
   }, [])
+
 
   return (
     <>
@@ -155,6 +273,7 @@ const Dashboard = (props) => {
                       <th></th>
                       <th>Time added</th>
                       <th className="text-center"></th>
+                      <th className="text-center"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -167,8 +286,17 @@ const Dashboard = (props) => {
                           color="link"
                           id="tooltip457194718"
                           title=""
+                          onClick={() => { editItem(index) }}
                           type="button"
                         ><i className="tim-icons icon-pencil" /> </Button></td>
+                        <td className="text-center"> <Button
+                          color="link"
+                          onClick={() => { deleteItem(index) }}
+                          id="tooltip457194718"
+                          title=""
+                          type="button"
+                        ><i className="tim-icons icon-trash-simple
+                        " /> </Button></td>
                       </tr>
                     ))}
 

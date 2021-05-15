@@ -115,7 +115,7 @@ const Dashboard = (props) => {
       });
       var config = {
         method: 'post',
-        url: process.env.REACT_APP_API_URI+'entries',
+        url: process.env.REACT_APP_API_URI + 'entries',
         headers: {
           'Authorization': `Bearer ${auth.getToken()}`,
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -149,9 +149,9 @@ const Dashboard = (props) => {
     });
     var config = {
       method: 'put',
-      url: process.env.REACT_APP_API_URI+`entries/${idList[idx]}`,
+      url: process.env.REACT_APP_API_URI + `entries/${idList[idx]}`,
       headers: {
-        'Authorization':  `Bearer ${auth.getToken()}`,
+        'Authorization': `Bearer ${auth.getToken()}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: data
@@ -174,9 +174,9 @@ const Dashboard = (props) => {
 
     var config = {
       method: 'delete',
-      url: process.env.REACT_APP_API_URI+`entries/${idList[idx]}`,
+      url: process.env.REACT_APP_API_URI + `entries/${idList[idx]}`,
       headers: {
-        'Authorization':  `Bearer ${auth.getToken()}`,
+        'Authorization': `Bearer ${auth.getToken()}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
 
@@ -199,16 +199,12 @@ const Dashboard = (props) => {
       history.push("/auth/login");
     }
     var data = qs.stringify({
-      'title': 'test',
-      'timeAdded': 'Saturday 7:32am 15 May 2021'
+
     });
     var config = {
       method: 'get',
-      url: process.env.REACT_APP_API_URI+'entries',
-      headers: {
-        'Authorization':  `Bearer ${auth.getToken()}`,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
+      url: process.env.REACT_APP_API_URI + 'entries',
+      headers: {},
       data: data
     };
 
